@@ -1,3 +1,3 @@
-from .glovar import set, get, remove, peek
+from .glovar import set, get, remove, peek, path, read_globals
 
-__version__ = "0.1.2"
+__version__ = "0.2"

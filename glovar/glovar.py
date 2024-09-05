@@ -2,12 +2,19 @@ import json
 import inspect
 import os
 
+path = None
+def path(filename):
+    global path
+    path = filename
+
 globals_file = "glovar.json"
 
 def get_caller_filename():
-    stack = inspect.stack()
-    caller_frame = stack[-1]
-    return os.path.abspath(caller_frame.filename).replace("\\", "/")
+    if path is None:
+        stack = inspect.stack()
+        caller_frame = stack[-1]
+        return os.path.abspath(caller_frame.filename).replace("\\", "/")
+    return path
 
 def read_globals():
     if not os.path.exists(globals_file):
