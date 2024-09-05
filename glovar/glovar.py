@@ -2,21 +2,25 @@ import json
 import os
 import sys
 
-user_path = os.path.abspath(sys.argv[0]).replace("\\", "/") # default is caller frame path
-def path(custom_path):
+user_path = os.path.normpath(os.path.abspath(sys.argv[0])).replace(os.sep, "/") # default is caller frame path
+def file(file_path):
     global user_path
-    user_path = custom_path
+    user_path = os.path.normpath(file_path).replace(os.sep, "/").lower()
 
-globals_file = "glovar.json"
+data_path = os.getcwd() # default is caller frame directory
+def data(directory=os.path.dirname(__file__)):
+    global data_path
+    data_path = os.path.join(os.path.normpath(directory).replace(os.sep, "/"), "glovar.json").lower()
+
 
 def read_globals():
-    if not os.path.exists(globals_file):
+    if not os.path.exists(data_path):
         return {}
-    with open(globals_file, "r") as f:
+    with open(data_path, "r") as f:
         return json.load(f)
 
 def write_globals(data):
-    with open(globals_file, "w") as f:
+    with open(data_path, "w") as f:
         json.dump(data, f)
 
 def set(name, value=None):
