@@ -14,23 +14,35 @@ The script includes functions to:
 
 `pip install glovar`
 
+## Variables
+
+### `var_path`
+
+Path to the file or string name to which global variables are bound. Default is
+Change it using `var_file(file_path)` function to change path.
+
+### `data_path`
+
+Path to directory where json file will be create and store. Default is package directory.
+Change it using `data(directory)` function to change directory.
+
 ## Functions
 
-### `var_file(file_path)`
+### `var_file(file_path=os.getcwd())`
 
 Set the path for the current user context.
 
 **Args:**
 
-- `file_path` (str): The path to the file.
+- `file_path` (str): The path to the file. Defaults to the directory of the caller frame.
 
-### `data(directory=os.path.dirname(__file__))`
+### `data(directory=os.getcwd())`
 
 Set the path for the `glovar.json` file.
 
 **Args:**
 
-- `directory` (str): The directory where the `glovar.json` file is located. Defaults to the directory of the current script.
+- `directory` (str): The directory where the `glovar.json` file is located. Defaults to the directory of the caller frame.
 
 ### `read_globals()`
 
@@ -86,7 +98,7 @@ Peek at the current global variables for the current var_file.
 1. **Link variables to file:**
 
    ```python
-   glovar.file("path/to/your/file")
+   glovar.var_file("path/to/your/file")
    ```
 
    do not execute this function to link to an executable file.
@@ -137,7 +149,7 @@ value = glovar.get("my_variable")
 print("Value:", value)  # Output: Value: my_value
 ```
 
-This script create glovar.json in same directory as "Example1.py" file
+This script create glovar.json in package directory
 
 ### Example 2: link file variables to other file
 
@@ -146,10 +158,27 @@ Example2.py
 ```python
 import glovar
 
-glovar.file("full/path/to/Example1.py")
+glovar.var_file("full/path/to/Example1.py")
 
 value = glovar.get("my_variable")
 print("Value:", value) # Output: Value: my_value
 ```
 
 Due to link Example1.py file to Example2.py using `glovar.file("full/path/to/Example1.py")` we can see my_variable from Example1.py
+
+### Example 3: link file variables to directory
+
+You can link variables to directory instead of files
+
+Example1.py
+
+```python
+import glovar
+
+glovar.var_file() # leave empty to link to file directory
+
+glovar.set("my_variable", "my_value")
+
+value = glovar.get("my_variable")
+print("Value:", value)  # Output: Value: my_value
+```

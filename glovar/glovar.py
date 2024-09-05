@@ -34,7 +34,7 @@ def var_file(file_path=os.getcwd()):
     global var_path
     var_path = os.path.normpath(file_path).replace(os.sep, "/").lower()
 
-data_path = os.path.join(os.path.dirname(__file__), "glovar.json").lower()
+data_path = os.path.join(os.path.dirname(__file__), "glovar.json").lower() # default is package directory
 def data(directory=os.getcwd()):
     """
     Specifies the name of the directory where the json file is stored.
