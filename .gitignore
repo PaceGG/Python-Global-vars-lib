@@ -2,3 +2,10 @@ __pycache__
 test.py
 globals.json
 .gitignore
+.pypirc
+.venv
+build/
+dist/
+*.egg-info
+*.egg
+setup.py

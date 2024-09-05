@@ -2,11 +2,11 @@ import json
 import inspect
 import os
 
-globals_file = "globals.json"
+globals_file = "glovar.json"
 
 def get_caller_filename():
     stack = inspect.stack()
-    caller_frame = stack[1]
+    caller_frame = stack[-1]
     return os.path.abspath(caller_frame.filename).replace("\\", "/")
 
 def read_globals():
