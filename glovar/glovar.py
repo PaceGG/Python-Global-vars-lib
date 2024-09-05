@@ -1,20 +1,13 @@
 import json
-import inspect
 import os
+import sys
 
-path = None
-def path(filename):
-    global path
-    path = filename
+user_path = os.path.abspath(sys.argv[0]).replace("\\", "/") # default is caller frame path
+def path(custom_path):
+    global user_path
+    user_path = custom_path
 
 globals_file = "glovar.json"
-
-def get_caller_filename():
-    if path is None:
-        stack = inspect.stack()
-        caller_frame = stack[-1]
-        return os.path.abspath(caller_frame.filename).replace("\\", "/")
-    return path
 
 def read_globals():
     if not os.path.exists(globals_file):
@@ -27,29 +20,25 @@ def write_globals(data):
         json.dump(data, f)
 
 def set(name, value=None):
-    caller_filename = get_caller_filename()
     data = read_globals()
-    globals = data.get(caller_filename, {})
+    globals = data.get(user_path, {})
     globals[name] = value
-    data[caller_filename] = globals
+    data[user_path] = globals
     write_globals(data)
 
 def get(name):
-    caller_filename = get_caller_filename()
     data = read_globals()
-    globals = data.get(caller_filename, {})
+    globals = data.get(user_path, {})
     return globals.get(name)
 
 def remove(name):
-    caller_filename = get_caller_filename()
     data = read_globals()
-    globals = data.get(caller_filename, {})
+    globals = data.get(user_path, {})
     globals.pop(name, None)
-    data[caller_filename] = globals
+    data[user_path] = globals
     write_globals(data)
     return globals
 
 def peek():
-    caller_filename = get_caller_filename()
     data = read_globals()
-    return data.get(caller_filename, {})
+    return data.get(user_path, {})
