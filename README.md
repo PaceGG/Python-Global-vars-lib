@@ -16,7 +16,7 @@ The script includes functions to:
 
 ## Functions
 
-### `file(file_path)`
+### `var_file(file_path)`
 
 Set the path for the current user context.
 
@@ -42,7 +42,7 @@ Read and return the contents of the `glovar.json` file as a dictionary.
 
 ### `set(name, value=None)`
 
-Set a global variable in the `glovar.json` file for the current user path.
+Set a global variable in the `glovar.json` file for the current var_file.
 
 **Args:**
 
@@ -51,7 +51,7 @@ Set a global variable in the `glovar.json` file for the current user path.
 
 ### `get(name)`
 
-Retrieve a global variable from the `glovar.json` file for the current user path.
+Retrieve a global variable from the `glovar.json` file for the current var_file.
 
 **Args:**
 
@@ -63,7 +63,7 @@ Retrieve a global variable from the `glovar.json` file for the current user path
 
 ### `remove(name)`
 
-Remove a global variable from the `glovar.json` file for the current user path.
+Remove a global variable from the `glovar.json` file for the current var_file.
 
 **Args:**
 
@@ -71,15 +71,15 @@ Remove a global variable from the `glovar.json` file for the current user path.
 
 **Returns:**
 
-- `dict`: The updated dictionary of global variables for the current user path.
+- `dict`: The updated dictionary of global variables for the current var_file.
 
 ### `peek()`
 
-Peek at the current global variables for the current user path.
+Peek at the current global variables for the current var_file.
 
 **Returns:**
 
-- `dict`: The dictionary of global variables for the current user path.
+- `dict`: The dictionary of global variables for the current var_file.
 
 ## Usage
 
